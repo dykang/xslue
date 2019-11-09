@@ -1,6 +1,5 @@
 # xSLUE
-Data and code for ["xSLUE: A Benchmark and Analysis Platform for Cross-Style Language Understanding and Evaluation
-"](https://arxiv.org) by Dongyeop Kang and Eduard Hovy. Please find our project page ([http://xslue.com/](http://xslue.com/)) which includes dataset, examples, classifiers, and leaderboard. If you have any questions, please contact to Dongyeop Kang (dongyeok@cs.cmu.edu).
+Data and code for ["xSLUE: A Benchmark and Analysis Platform for Cross-Style Language Understanding and Evaluation"](http://www.cs.cmu.edu/~dongyeok/papers/arxiv19kang_xslue_20191109.pdf) by Dongyeop Kang and Eduard Hovy. Please find our project page ([http://xslue.com/](http://xslue.com/)) which includes dataset, examples, classifiers, and leaderboard. If you have any questions, please contact to Dongyeop Kang (dongyeok@cs.cmu.edu).
 
 We provide an online platform for cross-style language understanding and evaluation.
 The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https://xslue.com/) contains 15 different styles and 23 classification tasks. For each task, we also provide the fine-tuned BERT classifier for further analysis. Our analysis shows that some styles are highly dependent on each other (e.g., impoliteness and offense), and some domains (e.g., tweets, political debates) are stylistically more diverse than the others (e.g., academic manuscripts).
@@ -15,10 +14,11 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
         year = {2019}
     }
 
-### Note
-- The diagnostic set is only available upon request, since this work is under review. We will publicly release it upon acceptance. However, we will evaluate your system on another, private diagnostic set on cross-style classification and report the score in the leaderboard.
+### Notes
+- This work is under review so we will not make any udpates during the review process.
+- The diagnostic set is only available upon request. We will publicly release it upon acceptance. 
 - Please contact to Dongyeop (dongyeok@cs.cmu.edu) if you like to add your cross-style system to the leaderboard. We will be testing your model on another, private diagnostic set and report the score in the [leaderboard](http://xslue.com/leaderboard). 
-- For the license issue, we did not include GYAFC in the benchmark but include only the fine-tuned classifier. You can contact to the authors directly, and then use our [pre-processing script](https://github.com/dykang/xslue/code/prepare/preprocess/convert_gyafc_to_slue.py).
+- For the license issue, we did not include GYAFC in the benchmark but include only the fine-tuned classifier. You can directly contact to the authors, and then use our [pre-processing script](https://github.com/dykang/xslue/code/prepare/preprocess/convert_gyafc_to_slue.py).
 
 ### Download xSLUE data and fine-tuned classifiers
 Before running any xSLUE tasks you should download the
