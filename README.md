@@ -36,8 +36,8 @@ cd code/style_classify/
 or
 
 ```shell
-SLUE_DIR=$HOME/data/slue
-SLUE_MODEL_DIR=$HOME/data/slue_model
+XSLUE_DIR=$HOME/data/xslue
+XSLUE_MODEL_DIR=$HOME/data/Xslue_model
 
 TASK_NAMES=("SentiTreeBank" "EmoBank_v"  "EmoBank_a" "EmoBank_d" "SARC" "SARC_pol" "StanfordPoliteness" "GYAFC"  "DailyDialog" "SarcasmGhosh" "ShortRomance" "CrowdFlower" "VUA" "TroFi" "ShortHumor" "ShortJokeKaggle" "HateOffensive" "PASTEL_politics" "PASTEL_country" "PASTEL_tod" "PASTEL_age" "PASTEL_education" "PASTEL_ethnic" "PASTEL_gender")
 
@@ -53,13 +53,13 @@ do
         --task_name ${TASK_NAME} \
         --do_eval --do_train \
         --do_lower_case \
-        --data_dir ${SLUE_DIR}/${TASK_NAME} \
+        --data_dir ${XSLUE_DIR}/${TASK_NAME} \
         --max_seq_length 128 \
         --per_gpu_eval_batch_size=8   \
         --per_gpu_train_batch_size=8   \
         --learning_rate 2e-5 \
         --num_train_epochs 3 \
-        --output_dir ${SLUE_MODEL_DIR}/${TASK_NAME}/${MODEL}/ \
+        --output_dir ${XSLUE_MODEL_DIR}/${TASK_NAME}/${MODEL}/ \
         --overwrite_output_dir --overwrite_cache
 done
 ```
@@ -76,8 +76,23 @@ pip install -r ./requirements.txt
 ### xSLUE Data and Classifiers
 Please check more details in [xslue.com/task](http://xslue.com/task)).
 
- - Formality GYAFC Not public [original](https://github.com/raosudha89/GYAFC-corpus) [classifier](https://github.com/dykang/xslue)
-
+| Style | Name |  Dataset | Classifier | Original |
+| :---: | :---: | :---: | :---: | :---: |
+| Formality | GYAFC | Not public  | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/GYAFC.zip) | [link](https://github.com/raosudha89/GYAFC-corpus) |
+| Politeness | StanfordPoliteness | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/StanfordPoliteness.zip) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/StanfordPoliteness.zip) | [link](https://www.cs.cornell.edu/~cristian/Politeness.html) |
+|  Humor |  ShortHumor | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/ShortHumor.zip) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/ShortHumor.zip) | [link](http://dongtae.lti.cs.cmu.edu:2828/github.com/CrowdTruth/Short-Text-Corpus-For-Humor-Detection) |
+|  Humor |  ShortJokeKaggle | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/ShortJokeKaggle.zip) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/ShortJokeKaggle.zip) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+|  Sarcasm | SarcasmGhosh  | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Sarcasm  |  SARC | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Metaphor  |  VUA | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+|  Metaphor | TroFi  | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+|  Emotion |  EmoBank | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+|  Emotion |  CrowdFlower | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+|  Emotion |  DailyDialog | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Offense |  HateOffensive | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Romance  | ShortRomance  | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Sentiment  |  SentiTreeBank | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
+| Persona  |  PASTEL | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/) | [download](http://dongtae.lti.cs.cmu.edu/data/xslue_model_v0.1/) | [link](https://github.com/amoudgl/short-jokes-dataset) |
 
 
 ### Acknolwedgements
