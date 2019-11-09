@@ -5,6 +5,8 @@ We provide an online platform for cross-style language understanding and evaluat
 The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https://xslue.com/) contains 15 different styles and 23 classification tasks. For each task, we also provide the fine-tuned BERT classifier for further analysis. Our analysis shows that some styles are highly dependent on each other (e.g., impoliteness and offense), and some domains (e.g., tweets, political debates) are stylistically more diverse than the others (e.g., academic manuscripts).
 
 
+![](correlation.png)
+
 ## Citation
     @inproceedings{kang19arxiv_xslue,
         title = {xSLUE: A Benchmark and Analysis Platform for Cross-Style Language Understanding and Evaluation},
