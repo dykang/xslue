@@ -15,30 +15,31 @@ from torch.utils.data.distributed import DistributedSampler
 from tensorboardX import SummaryWriter
 from tqdm import tqdm, trange
 
-from pytorch_transformers import (WEIGHTS_NAME, BertConfig,
-                                  BertForSequenceClassification, BertTokenizer,
-                                  XLMConfig, XLMForSequenceClassification,
-                                  XLMTokenizer, XLNetConfig,
-                                  XLNetForSequenceClassification,
-                                  XLNetTokenizer)
 
-from pytorch_transformers import AdamW, WarmupLinearSchedule
+from transformers import BertForSequenceClassification, BertTokenizer,XLNetConfig,XLNetForSequenceClassification,XLNetTokenizer, XLMConfig, XLMForSequenceClassification, XLMTokenizer, BertConfig, AdamW, get_linear_schedule_with_warmup, logging
+
+# from pytorch_transformers import (WEIGHTS_NAME, BertConfig,
+                                  # BertForSequenceClassification, BertTokenizer,
+                                  # XLMConfig, XLMForSequenceClassification,
+                                  # XLMTokenizer, XLNetConfig,
+                                  # XLNetForSequenceClassification,
+                                  # XLNetTokenizer)
+
+# from pytorch_transformers import AdamW, WarmupLinearSchedule
 
 from utils_classify import (compute_metrics, convert_examples_to_features,
                         output_modes, processors)
 
-logger = logging.getLogger(__name__)
+logger = logging.get_logger() #getLogger(__name__)
 coloredlogs.install(fmt='%(asctime)s %(name)s %(levelname)s %(message)s',level='INFO',datefmt='%m/%d %H:%M:%S',logger=logger)
 # Setup logging
-# logging.basicConfig(format = '%(asctime)s - %(levelname)s - %(name)s -   %(message)s',datefmt = '%m/%d/%Y %H:%M:%S', level = logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
+# logging.basicConfig(format = '%(asctime)s - %(levelname)s - %(name)s -   %(message)s',datefmt = '%m/%d/%Y %H:%M:%S', level = logging.INFO if args.local_rank in [0, 0] else logging.WARN)
 
 
 
 def highlight(input):
     return Fore.YELLOW+str(input)+Style.RESET_ALL
 
-
-ALL_MODELS = sum((tuple(conf.pretrained_config_archive_map.keys()) for conf in (BertConfig, XLNetConfig, XLMConfig)), ())
 
 MODEL_CLASSES = {
     'bert': (BertConfig, BertForSequenceClassification, BertTokenizer),
@@ -76,8 +77,12 @@ def train(args, train_dataset, model, tokenizer):
         {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': args.weight_decay},
         {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
+    # optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+    # scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
     optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
-    scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
+    scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps,num_training_steps=t_total)
+
+
     if args.fp16:
         try:
             from apex import amp
@@ -111,7 +116,7 @@ def train(args, train_dataset, model, tokenizer):
     train_iterator = trange(int(args.num_train_epochs), desc="Epoch", disable=args.local_rank not in [-1, 0])
     set_seed(args)  # Added here for reproductibility (even between python 2 and 3)
     for epoch in train_iterator:
-        epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0], ncols=8)
+        epoch_iterator = tqdm(train_dataloader, desc="Iteration")
         for step, batch in enumerate(epoch_iterator):
             model.train()
             batch = tuple(t.to(args.device) for t in batch)
@@ -140,13 +145,12 @@ def train(args, train_dataset, model, tokenizer):
             tr_loss += loss.item()
 
             # logging
-            epoch_iterator.desc = "[{}] Loss:{:.2f} lr:{:.1e}".format(
-                    epoch, tr_loss / (step+1),
-                    scheduler.get_lr()[0])
+            epoch_iterator.set_description("[{}] Loss:{:.2f} lr:{:.1e}".format(
+                    epoch, tr_loss / (step+1), scheduler.get_last_lr()[0] ))
 
             if (step + 1) % args.gradient_accumulation_steps == 0:
-                scheduler.step()  # Update learning rate schedule
                 optimizer.step()
+                scheduler.step()  # Update learning rate schedule
                 model.zero_grad()
                 global_step += 1
 
@@ -156,7 +160,7 @@ def train(args, train_dataset, model, tokenizer):
                         results = evaluate(args, model, tokenizer)
                         for key, value in results.items():
                             tb_writer.add_scalar('eval_{}'.format(key), value, global_step)
-                    tb_writer.add_scalar('lr', scheduler.get_lr()[0], global_step)
+                    tb_writer.add_scalar('lr', scheduler.get_last_lr()[0], global_step)
                     tb_writer.add_scalar('loss', (tr_loss - logging_loss)/args.logging_steps, global_step)
                     logging_loss = tr_loss
 
@@ -170,7 +174,6 @@ def train(args, train_dataset, model, tokenizer):
                     model_to_save.save_pretrained(output_dir)
                     torch.save(args, os.path.join(output_dir, 'training_args.bin'))
                     # logger.info("Saving model checkpoint to %s", output_dir
-                # TODO (1) validation, (2) early stopping (3) save multiple checkpints
 
             if args.max_steps > 0 and global_step > args.max_steps:
                 epoch_iterator.close()
@@ -403,7 +406,7 @@ def main():
     parser.add_argument("--model_type", default=None, type=str, required=True,
                         help="Model type selected in the list: " + ", ".join(MODEL_CLASSES.keys()))
     parser.add_argument("--model_name_or_path", default=None, type=str, required=True,
-                        help="Path to pre-trained model or shortcut name selected in the list: " + ", ".join(ALL_MODELS))
+                        help="Path to pre-trained model or shortcut name selected in the list: ")
     parser.add_argument("--task_name", default=None, type=str, required=True,
                         help="The name of the task to train selected in the list: " + ", ".join(processors.keys()))
     parser.add_argument("--output_dir", default=None, type=str, required=True,
@@ -483,8 +486,8 @@ def main():
 
 
     # SARC_pol -> SARC in data_dir
-    args.data_dir = args.data_dir.split('_')[0]
-
+    if "_" in args.task_name:
+        args.data_dir = "/".join(args.data_dir.split("/")[:-1]) + "/" + args.task_name.split('_')[0]
 
     if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train and not args.overwrite_output_dir:
         raise ValueError("Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(args.output_dir))

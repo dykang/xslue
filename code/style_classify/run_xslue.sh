@@ -1,19 +1,20 @@
 #!/bin/bash
 
 
-SLUE_DIR=$HOME/data/slue
-SLUE_MODEL_DIR=$HOME/data/slue_model
+SLUE_DIR=$HOME/data/xslue_data
+SLUE_MODEL_DIR=$HOME/data/xslue_model
 
 
 
 TASK_NAMES=("SentiTreeBank" "EmoBank_v"  "EmoBank_a" "EmoBank_d" "SARC" "SARC_pol" "StanfordPoliteness" "GYAFC"  "DailyDialog" "SarcasmGhosh" "ShortRomance" "CrowdFlower" "VUA" "TroFi" "ShortHumor" "ShortJokeKaggle" "HateOffensive" "PASTEL_politics" "PASTEL_country" "PASTEL_tod" "PASTEL_age" "PASTEL_education" "PASTEL_ethnic" "PASTEL_gender")
 
 MODEL=bert-base-uncased
+#sleep 60m &&
 
 for TASK_NAME in "${TASK_NAMES[@]}"
 do
     echo "Running ... ${TASK_NAME}"
-    CUDA_VISIBLE_DEVICES=0 \
+    CUDA_VISIBLE_DEVICES= \
     python classify_bert.py \
         --model_type bert \
         --model_name_or_path ${MODEL} \
@@ -28,7 +29,6 @@ do
         --num_train_epochs 3 \
         --output_dir ${SLUE_MODEL_DIR}/${TASK_NAME}/${MODEL}/ \
         --overwrite_output_dir --overwrite_cache
-
         #  --eval_dataset ${EVAL_DATASET}
-    # exit
+     exit
 done
