@@ -24,7 +24,7 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
 
 ### Download xSLUE data and fine-tuned classifiers
 Before running any xSLUE tasks you should download the
-[xSLUE data](https://xslue.com/task) by running this [script]((https://github.com/dykang/xslue/code/download_xslue_data.sh). You can also download the fine-tuned BERT classifiers by running this [script]((https://github.com/dykang/xslue/code/download_xslue_model.sh). We also provide the links to download them in the table at the bottom of this page below. 
+[xSLUE data](https://xslue.com/task) by running this [script](https://github.com/dykang/xslue/code/download_xslue_data.sh). You can also download the fine-tuned BERT classifiers by running this [script](https://github.com/dykang/xslue/code/download_xslue_model.sh). We also provide the links to download them in the table at the bottom of this page below. 
 
 
 ### `run_xslue.sh`: Fine-tuning on xSLUE tasks for style classification
@@ -38,7 +38,7 @@ or
 
 ```shell
 XSLUE_DIR=$HOME/data/xslue
-XSLUE_MODEL_DIR=$HOME/data/Xslue_model
+XSLUE_MODEL_DIR=$HOME/data/xslue_model
 
 TASK_NAMES=("SentiTreeBank" "EmoBank_v"  "EmoBank_a" "EmoBank_d" "SARC" "SARC_pol" "StanfordPoliteness" "GYAFC"  "DailyDialog" "SarcasmGhosh" "ShortRomance" "CrowdFlower" "VUA" "TroFi" "ShortHumor" "ShortJokeKaggle" "HateOffensive" "PASTEL_politics" "PASTEL_country" "PASTEL_tod" "PASTEL_age" "PASTEL_education" "PASTEL_ethnic" "PASTEL_gender")
 
