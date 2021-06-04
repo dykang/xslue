@@ -17,6 +17,14 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
         archivePrefix={arXiv},
         primaryClass={cs.CL}
     }
+    @inproceedings{kang2021xslue,
+        title = "Style is NOT a single variable: Case Studies for Cross-Style Language Understanding",
+        author = "Kang, Dongyeop  and
+          Hovy, Eduard",
+        booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics",
+        year = "2021",
+        publisher = "Association for Computational Linguistics",
+    }    
 
 ### Notes
 - Please contact to Dongyeop (dongyeok@cs.cmu.edu) if you like to add your cross-style system to the leaderboard or evaluate your system on the diagnostic cross-set.
