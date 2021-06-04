@@ -1,5 +1,6 @@
 # xSLUE
-Data and code for ["xSLUE: A Benchmark and Analysis Platform for Cross-Style Language Understanding and Evaluation"](http://www.cs.cmu.edu/~dongyeok/papers/arxiv19kang_xslue_20191109.pdf) by Dongyeop Kang and Eduard Hovy. Please find our project page ([http://xslue.com/](http://xslue.com/)) which includes dataset, examples, classifiers, and leaderboard. If you have any questions, please contact to Dongyeop Kang (dongyeok@cs.cmu.edu).
+Data and code for our ACL 2021 paper ["Style is NOT a single variable: Case Studies for Cross-Style Language Understanding
+"](https://arxiv.org/abs/1911.03663) by Dongyeop Kang and Eduard Hovy. Please find our project page ([http://xslue.com/](http://xslue.com/)) which includes dataset, examples, classifiers, and leaderboard. If you have any questions, please contact to Dongyeop Kang (dongyeopk@berkeley.edu).
 
 We provide an online platform for cross-style language understanding and evaluation.
 The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https://xslue.com/) contains 15 different styles and 23 classification tasks. For each task, we also provide the fine-tuned BERT classifier for further analysis. Our analysis shows that some styles are highly dependent on each other (e.g., impoliteness and offense), and some domains (e.g., tweets, political debates) are stylistically more diverse than the others (e.g., academic manuscripts).
@@ -8,24 +9,22 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
 ![](correlation.png)
 
 ## Citation
-    @inproceedings{kang19arxiv_xslue,
-        title = {xSLUE: A Benchmark and Analysis Platform for Cross-Style Language Understanding and Evaluation},
-        author = {Dongyeop Kang and Eduard Hovy},
-        booktitle = {https://arxiv.org},
-        url = {https://arxiv.org},
-        year = {2019}
+    @misc{kang2019style,
+        title={Style is NOT a single variable: Case Studies for Cross-Style Language Understanding},
+        author={Dongyeop Kang and Eduard Hovy},
+        year={2019},
+        eprint={1911.03663},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL}
     }
 
 ### Notes
-- This work is under review so we will not make any udpates during the review process.
-- The diagnostic set is only available upon request. We will publicly release it upon acceptance. 
-- Please contact to Dongyeop (dongyeok@cs.cmu.edu) if you like to add your cross-style system to the leaderboard. We will be testing your model on another, private diagnostic set and report the score in the [leaderboard](http://xslue.com/leaderboard). 
+- Please contact to Dongyeop (dongyeok@cs.cmu.edu) if you like to add your cross-style system to the leaderboard or evaluate your system on the diagnostic cross-set.
 - For the license issue, we did not include GYAFC in the benchmark but include only the fine-tuned classifier. You can directly contact to the authors, and then use our [pre-processing script](https://github.com/dykang/xslue/code/prepare/preprocess/convert_gyafc_to_slue.py).
 
 ### Download xSLUE data and fine-tuned classifiers
 Before running any xSLUE tasks you should download the
-[xSLUE data](https://xslue.com/task) by running this script (TODO) or clicking the [Download Data All (v0.1)](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/xslue_data_v0.1.zip) button.
-You can also download the fine-tuned BERT classifiers by clicking the [Download Classifier All (v0.1)](http://dongtae.lti.cs.cmu.edu/data/xslue_v0.1/xslue_model_v0.1.zip) button. We also provide the links to download them in the table at the bottom of this page below. 
+[xSLUE data](https://xslue.com/task) by running this [script]((https://github.com/dykang/xslue/code/download_xslue_data.sh). You can also download the fine-tuned BERT classifiers by running this [script]((https://github.com/dykang/xslue/code/download_xslue_model.sh). We also provide the links to download them in the table at the bottom of this page below. 
 
 
 ### `run_xslue.sh`: Fine-tuning on xSLUE tasks for style classification
@@ -98,7 +97,6 @@ Please check more details in [xslue.com/task](http://xslue.com/task).
 
 ### Acknolwedgements
  - our style classification code is based on huggingface's [transformers](https://github.com/huggingface/transformers) on GLUE tasks.
- - the structure of our benchmark and basic idea are motiviated by [GLUE](https://gluebenchmark.com/) project.
  - our BiLSTM baseline code is based on [Pytorch-RNN-text-classification](https://github.com/keishinkickback/Pytorch-RNN-text-classification).
 
 
