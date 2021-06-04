@@ -9,14 +9,6 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
 ![](correlation.png)
 
 ## Citation
-    @misc{kang2019style,
-        title={Style is NOT a single variable: Case Studies for Cross-Style Language Understanding},
-        author={Dongyeop Kang and Eduard Hovy},
-        year={2019},
-        eprint={1911.03663},
-        archivePrefix={arXiv},
-        primaryClass={cs.CL}
-    }
     @inproceedings{kang2021xslue,
         title = "Style is NOT a single variable: Case Studies for Cross-Style Language Understanding",
         author = "Kang, Dongyeop  and
