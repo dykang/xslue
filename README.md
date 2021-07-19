@@ -19,8 +19,10 @@ The [Cross-Style Language Understanding and Evaluation (xSLUE) benchmark](https:
     }    
 
 ### Notes
-- Please contact to Dongyeop (dongyeok@cs.cmu.edu) if you like to add your cross-style system to the leaderboard or evaluate your system on the diagnostic cross-set.
+- The downloading links are borken now. Please use this [Google drive link](https://drive.google.com/drive/folders/1JcpY638OBM6zQFuRXZU0IzqtXaueAHcZ?usp=sharing) instead as of now. Later, I will be hosting S3 or dedicated server again.
+- Please contact to Dongyeop (dongyeop@umn.edu) if you like to add your cross-style system to the leaderboard or evaluate your system on the diagnostic cross-set.
 - For the license issue, we did not include GYAFC in the benchmark but include only the fine-tuned classifier. You can directly contact to the authors, and then use our [pre-processing script](https://github.com/dykang/xslue/code/prepare/preprocess/convert_gyafc_to_slue.py).
+
 
 ### Download xSLUE data and fine-tuned classifiers
 Before running any xSLUE tasks you should download the
@@ -80,6 +82,8 @@ pip install -r ./requirements.txt
 
 ### xSLUE Data and Classifiers
 Please check more details in [xslue.com/task](http://xslue.com/task).
+NOTE: the downloading links are borken now. Please use this [Google drive link](https://drive.google.com/drive/folders/1JcpY638OBM6zQFuRXZU0IzqtXaueAHcZ?usp=sharing) instead as of now. Later, I will be hosting S3 or dedicated server again.
+
 
 | Style | Name |  Dataset | Classifier | Original |
 | :---: | :---: | :---: | :---: | :---: |
